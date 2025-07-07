@@ -7,7 +7,7 @@ void histogram_sequential(std::string const sentence, unsigned int *histogram)
     for (unsigned int i = 0; i < sentence.length(); i++)
     {
         int alphabet_pos = sentence[i] - 'a'; // Position of the alphabet
-        if (alphabet_pos >= 0 && alphabet_pos < 26)
+        if (alphabet_pos >= 0 && alphabet_pos < 26) // Store if it is lowercase
         {
             histogram[alphabet_pos/4] += 1;
         }
