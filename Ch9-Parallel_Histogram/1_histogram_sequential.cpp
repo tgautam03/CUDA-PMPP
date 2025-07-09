@@ -8,9 +8,7 @@ void histogram_sequential(std::string const sentence, unsigned int *histogram)
     {
         int alphabet_pos = sentence[i] - 'a'; // Position of the alphabet
         if (alphabet_pos >= 0 && alphabet_pos < 26) // Store if it is lowercase
-        {
             histogram[alphabet_pos/4] += 1;
-        }
     }
 }
 
@@ -28,7 +26,7 @@ int main(int argc, char const *argv[])
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
-    std::cout << "Runtime (should be O(N)): " << duration.count() << " microseconds";
+    std::cout << "Runtime (should be O(N)): " << duration.count() << " microseconds \n";
 
     // Display results
     std::cout << "\n--- Character Frequency Histogram ---\n";
