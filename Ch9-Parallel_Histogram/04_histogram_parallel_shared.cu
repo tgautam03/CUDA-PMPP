@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-__global__ void histogram_parallel_private_shared(char *sentence_data_device, unsigned int sentence_len, unsigned int *histogram_device) 
+__global__ void histogram_parallel_shared(char *sentence_data_device, unsigned int sentence_len, unsigned int *histogram_device) 
 {
     unsigned int i = blockIdx.x*blockDim.x + threadIdx.x; // Which character this thread will work on
 
@@ -16,7 +16,7 @@ __global__ void histogram_parallel_private_shared(char *sentence_data_device, un
     {
         int alphabet_pos = sentence_data_device[i] - 'a'; // Position of the alphabet
         if (alphabet_pos >= 0 && alphabet_pos < 26) // Store if it is lowercase
-            atomicAdd(&sh_histogram[alphabet_pos/4], 1); // Storing in private histogram
+            atomicAdd(&sh_histogram[alphabet_pos/4], 1); // Storing in shared memory histogram
     }
 
     // Commit to global memory
@@ -68,7 +68,7 @@ int main(int argc, char const *argv[])
     
     // Kernel execution
     cudaEventRecord(beg);
-    histogram_parallel_private_shared<<<num_blocks, num_threads_per_block>>>(sentence_data_device, sentence_len, histogram_device);
+    histogram_parallel_shared<<<num_blocks, num_threads_per_block>>>(sentence_data_device, sentence_len, histogram_device);
     cudaEventRecord(end);
     cudaEventSynchronize(beg);
     cudaEventSynchronize(end);

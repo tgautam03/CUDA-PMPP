@@ -10,8 +10,8 @@ CC_gpu = nvcc -gencode arch=compute_86,code=sm_86
 03_histogram_parallel_private: 03_histogram_parallel_private.cu
 	@$(CC_gpu) 03_histogram_parallel_private.cu -o 03_histogram_parallel_private.out
 
-04_histogram_parallel_private_shared: 04_histogram_parallel_private_shared.cu
-	@$(CC_gpu) 04_histogram_parallel_private_shared.cu -o 04_histogram_parallel_private_shared.out
+04_histogram_parallel_shared: 04_histogram_parallel_shared.cu
+	@$(CC_gpu) 04_histogram_parallel_shared.cu -o 04_histogram_parallel_shared.out
 
 clean:
 	@echo "Removing object files..."
