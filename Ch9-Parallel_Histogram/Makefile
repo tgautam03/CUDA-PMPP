@@ -1,11 +1,17 @@
 CC_cpu = g++
 CC_gpu = nvcc -gencode arch=compute_86,code=sm_86
 
-1_histogram_sequential: 1_histogram_sequential.cpp
-	@$(CC_cpu) 1_histogram_sequential.cpp -o 1_histogram_sequential.out
+01_histogram_sequential: 01_histogram_sequential.cpp
+	@$(CC_cpu) 01_histogram_sequential.cpp -o 01_histogram_sequential.out
 
-2_histogram_parallel_atomic: 2_histogram_parallel_atomic.cu
-	@$(CC_gpu) 2_histogram_parallel_atomic.cu -o 2_histogram_parallel_atomic.out
+02_histogram_parallel_atomic: 02_histogram_parallel_atomic.cu
+	@$(CC_gpu) 02_histogram_parallel_atomic.cu -o 02_histogram_parallel_atomic.out
+
+03_histogram_parallel_private: 03_histogram_parallel_private.cu
+	@$(CC_gpu) 03_histogram_parallel_private.cu -o 03_histogram_parallel_private.out
+
+04_histogram_parallel_private_shared: 04_histogram_parallel_private_shared.cu
+	@$(CC_gpu) 04_histogram_parallel_private_shared.cu -o 04_histogram_parallel_private_shared.out
 
 clean:
 	@echo "Removing object files..."
